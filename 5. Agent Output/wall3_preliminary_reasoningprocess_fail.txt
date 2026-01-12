@@ -1,0 +1,57 @@
+Step-by-step reasoning and computing process
+
+1. Data scan & Z-axis simplification  
+   • All members have the same Z coordinate (-0.05 m) for centre and both endpoints → the frame is co-planar.  
+   • Therefore every timber can be treated as a 2-D rectangle in the XY-plane; we will keep the original Z value only in the output.
+
+2. What geometric data are really needed?  
+   Required: member_id, endpoints (or centre), length.  
+   Not needed for sequencing: orientation matrix, width, depth (they are constant), Z coordinate (constant).  
+   We will use the vector (endpoint2 – endpoint1) to decide whether the member is horizontal (|dx|≫|dy|) or vertical (|dy|≫|dx|) and the centre.X / centre.Y to know its location.
+
+3. Orientation and role identification  
+   Horizontal members (length along X):  
+      #1  centreY = 2.50 m  → top plate  
+      #8  centreY = 0.00 m  → bottom plate  
+      #3,#4,#9,#11  centreY≈1.25 m → noggings (mid-height blocking between studs)
+
+   Vertical members (length along Y ≈2.45 m):  
+      #2,#5,#6,#7,#10  → common studs (full-height)
+
+   No member has shortened vertical length, so there are no jamb studs or jack studs; no opening therefore no lintel/sill.
+
+4. Left-to-Right coordinate ordering (centre.X)  
+   Studs:  #10 (0.00 m) < #6 (1.20 m) < #2 (2.40 m) < #7 (3.60 m) < #5 (4.80 m)  
+   Noggings: their X centres fall between the two studs of each bay:
+      #3 between #10 & #6, #9 between #6 & #2, #11 between #2 & #7, #4 between #7 & #5.
+
+5. Free-Edge rule check  
+   • While placing each vertical stud it still has at least one long side (east or west) and its top edge fully exposed.  
+   • A nogging is only inserted after the two studs that bound its bay are in place; its top edge and both long edges are fully free prior to sliding down → rule satisfied.  
+   • The top plate is installed last; its top long edge and at least one short end edge are free.  
+   Thus the planned sequence complies with the Free-Edge requirement.
+
+6. Bottom–Middle–Top assembly logic  
+   1) Bottom plate first.  
+   2) Middle zone assembled left-to-right:  
+      – stud, stud, nogging for bay-1;  
+      – stud, nogging for bay-2;  
+      – stud, nogging for bay-3;  
+      – stud, nogging for bay-4.  
+   3) Top plate last.
+
+Preliminary assembly sequence (JSON)
+
+[
+{"step_no": 1, "member_id": 8, "member_role": "bottom plate"},
+{"step_no": 2, "member_id": 10, "member_role": "common stud"},
+{"step_no": 3, "member_id": 6, "member_role": "common stud"},
+{"step_no": 4, "member_id": 3, "member_role": "nogging"},
+{"step_no": 5, "member_id": 2, "member_role": "common stud"},
+{"step_no": 6, "member_id": 9, "member_role": "nogging"},
+{"step_no": 7, "member_id": 7, "member_role": "common stud"},
+{"step_no": 8, "member_id": 11, "member_role": "nogging"},
+{"step_no": 9, "member_id": 5, "member_role": "common stud"},
+{"step_no": 10, "member_id": 4, "member_role": "nogging"},
+{"step_no": 11, "member_id": 1, "member_role": "top plate"}
+]
