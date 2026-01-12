@@ -1,0 +1,61 @@
+Reasoning & Planning Steps (abridged but complete)
+
+1. 2-D simplification  
+   All z–coordinates are identical (-0.05 m), so collision reasoning can safely be done in the XY plane.  For every member we only need:
+   • member_id – unique reference  
+   • length – to derive its 2-D bounding box  
+   • centre.xy – gives its position  
+   • first row of the orientation matrix – tells whether the piece runs parallel to X (horizontal) or to Y (vertical)  
+   Everything else (width, depth, z, endpoints, full 3×3 matrix) can be ignored for sequencing.
+
+2. Role identification (based on length, height of centre-y, and adjacency)
+   • bottom plate : 10  
+   • top plate    : 1  
+   • common studs : 2 4 5 7 9 12 14 17  
+   • jamb studs   : 16 26 27 28            (vertical 1.95 m, between bottom plate & lintel)  
+   • lintels      : 3 13                   (horizontal 1.75 m & 1.75 m @ y = 2 m)  
+   • sill trimmer : 11                     (horizontal 1.65 m @ y ≈ 0.7 m)  
+   • jack studs below sill : 22 25         (0.65 m high)  
+   • jack studs above header (window) : 23 24  (0.45 m high)  
+   • jack studs above header (door)   : 19 20  (0.45 m high)  
+   • noggings (mid-height blocking)   : 6 8 15 18 21
+
+3. Sequencing strategy  
+   • Bottom-Middle-Top: bottom plate first, top plate last.  
+   • Middle zone placed strictly Left-to-Right (ascending X-coordinate).  
+   • To satisfy the Free-Edge rule each horizontal piece is inserted while its right-hand neighbour stud is still missing; each lintel is inserted while its right-hand jamb is still missing.
+     Example: stud 16 → lintel 3 → stud 26.  
+   • Noggings are inserted after the left stud and before the right stud in every pair (e.g. stud 9 → nog 21 → stud 12).
+
+4. Resulting preliminary assembly sequence
+
+[
+{"step_no": 1,  "member_id": 10, "member_role": "bottom plate"},
+{"step_no": 2,  "member_id": 9,  "member_role": "common stud"},
+{"step_no": 3,  "member_id": 21, "member_role": "nogging"},
+{"step_no": 4,  "member_id": 12, "member_role": "common stud"},
+{"step_no": 5,  "member_id": 6,  "member_role": "nogging"},
+{"step_no": 6,  "member_id": 2,  "member_role": "common stud"},
+{"step_no": 7,  "member_id": 16, "member_role": "jamb stud"},
+{"step_no": 8,  "member_id": 22, "member_role": "jack stud below sill"},
+{"step_no": 9,  "member_id": 25, "member_role": "jack stud below sill"},
+{"step_no": 10, "member_id": 11, "member_role": "sill trimmer"},
+{"step_no": 11, "member_id": 3,  "member_role": "lintel"},
+{"step_no": 12, "member_id": 24, "member_role": "jack stud above header"},
+{"step_no": 13, "member_id": 23, "member_role": "jack stud above header"},
+{"step_no": 14, "member_id": 26, "member_role": "jamb stud"},
+{"step_no": 15, "member_id": 7,  "member_role": "common stud"},
+{"step_no": 16, "member_id": 18, "member_role": "nogging"},
+{"step_no": 17, "member_id": 17, "member_role": "common stud"},
+{"step_no": 18, "member_id": 8,  "member_role": "nogging"},
+{"step_no": 19, "member_id": 4,  "member_role": "common stud"},
+{"step_no": 20, "member_id": 27, "member_role": "jamb stud"},
+{"step_no": 21, "member_id": 13, "member_role": "lintel"},
+{"step_no": 22, "member_id": 19, "member_role": "jack stud above header"},
+{"step_no": 23, "member_id": 20, "member_role": "jack stud above header"},
+{"step_no": 24, "member_id": 28, "member_role": "jamb stud"},
+{"step_no": 25, "member_id": 5,  "member_role": "common stud"},
+{"step_no": 26, "member_id": 15, "member_role": "nogging"},
+{"step_no": 27, "member_id": 14, "member_role": "common stud"},
+{"step_no": 28, "member_id": 1,  "member_role": "top plate"}
+]

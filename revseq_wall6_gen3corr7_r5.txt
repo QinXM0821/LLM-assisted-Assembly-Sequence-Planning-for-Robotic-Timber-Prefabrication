@@ -1,0 +1,126 @@
+Reasoning and rule-check  
+(axes: +X = right, +Y = up, +Z = out of wall; all tolerances 1 mm = 0.001 m)
+
+Simplification: every member has z = -0.05 m ⇒ 2-D reasoning in the XY-plane is valid.
+
+Bounding-box computation rule  
+• Horizontal member:  x-range = [min(endpoint x), max(endpoint x)]  
+                     y-range = [ycentre-0.025, ycentre+0.025] (width 0.05)  
+  Edges: left, right (end edges) -x/+x;  bottom, top (side edges) -y/+y.  
+• Vertical member:    y-range = [min(endpoint y), max(endpoint y)]  
+                     x-range = [xcentre-0.025, xcentre+0.025]  
+  Edges: bottom, top (end edges) -y/+y;  left, right (side edges) -x/+x.  
+
+Blocked-edge test  
+candidate.left   ↔ previous.right  
+candidate.right  ↔ previous.left  
+candidate.bottom ↔ previous.top  
+candidate.top    ↔ previous.bottom,  with projection overlap >0.
+
+Repaired sequence  
+Two infeasibilities were found in the original file:  
+1) Jamb stud 26 (old step 14) had both end edges blocked by bottom plate + lintel;  
+2) Jamb stud 28 (old step 24) had the same problem.  
+Repair: move each jamb stud so that it is placed after the sill (if any) but before the lintel that caps it.  That yields the following feasible order:
+
+1  bottom plate 10  
+2  common stud 9  
+3  nogging 21  
+4  common stud 12  
+5  nogging 6  
+6  common stud 2  
+7  jamb stud 16  
+8  jack stud below sill 22  
+9  jack stud below sill 25  
+10 sill trimmer 11  
+11 jamb stud 26          (moved)  
+12 lintel 3  
+13 jack stud above header 24  
+14 jack stud above header 23  
+15 common stud 7  
+16 nogging 18  
+17 common stud 17  
+18 nogging 8  
+19 common stud 4  
+20 jamb stud 27  
+21 jamb stud 28          (moved)  
+22 lintel 13  
+23 jack stud above header 19  
+24 jack stud above header 20  
+25 common stud 5  
+26 nogging 15  
+27 common stud 14  
+28 top plate 1  
+
+Rule Check Result (re-run on repaired sequence)  
+(step_no , member_id , member_role , blocked_edges , result)  
+
+1 ,10 ,bottom plate ,{} ,#PASS  
+2 ,9  ,common stud ,bottom:{by:10@1} ,#PASS  
+3 ,21 ,nogging      ,left:{by:9@2} ,#PASS  
+4 ,12 ,common stud ,bottom:{10@1};left:{21@3} ,#PASS  
+5 ,6  ,nogging      ,left:{by:12@4} ,#PASS  
+6 ,2  ,common stud ,bottom:{10@1};left:{6@5} ,#PASS  
+7 ,16 ,jamb stud   ,bottom:{10@1};left:{2@6} ,#PASS  
+8 ,22 ,jack stud↓  ,bottom:{by:10@1} ,#PASS  
+9 ,25 ,jack stud↓  ,bottom:{by:10@1} ,#PASS  
+10,11 ,sill trimmer,left:{16@7};bottom:{22@8,25@9} ,#PASS  
+11,26 ,jamb stud   ,bottom:{10@1};left:{11@10} ,#PASS  
+12,3  ,lintel      ,bottom:{16@7,26@11};left:{2@6} ,#PASS  
+13,24 ,jack stud↑  ,bottom:{3@12} ,#PASS  
+14,23 ,jack stud↑  ,bottom:{3@12} ,#PASS  
+15,7  ,common stud ,bottom:{10@1};left:{26@11,3@12} ,#PASS  
+16,18 ,nogging      ,left:{by:7@15} ,#PASS  
+17,17 ,common stud ,bottom:{10@1};left:{18@16} ,#PASS  
+18,8  ,nogging      ,left:{by:17@17} ,#PASS  
+19,4  ,common stud ,bottom:{10@1};left:{8@18} ,#PASS  
+20,27 ,jamb stud   ,bottom:{10@1};left:{4@19} ,#PASS  
+21,28 ,jamb stud   ,bottom:{10@1} ,#PASS  
+22,13 ,lintel      ,bottom:{27@20,28@21};left:{4@19} ,#PASS  
+23,19 ,jack stud↑  ,bottom:{13@22} ,#PASS  
+24,20 ,jack stud↑  ,bottom:{13@22} ,#PASS  
+25,5  ,common stud ,bottom:{10@1};left:{28@21,13@22} ,#PASS  
+26,15 ,nogging      ,left:{by:5@25} ,#PASS  
+27,14 ,common stud ,bottom:{10@1};left:{15@26} ,#PASS  
+28,1  ,top plate   ,bottom:{by:9@2,12@4,2@6,7@15,17@17,4@19,5@25,14@27,24@13,23@14,19@23,20@24} ,#PASS  
+
+All 28 steps now satisfy the Bottom–Middle–Top order and the Free-edge rule.
+
+Slide-in directions  
+(0 = unconstrained; ±X/±Y unit vectors; diagonal = normalised sum)
+
+bottom      → (0,-1,0)  
+left        → (-1,0,0)  
+left+bottom → (-0.7071,-0.7071,0)
+
+Revised, rule-compliant assembly sequence with slide-in directions
+[
+{"step_no": 1,  "member_id": 10, "member_role": "bottom plate",             "slide_dir": [ 0.0,      0.0,      0.0 ]},
+{"step_no": 2,  "member_id": 9,  "member_role": "common stud",              "slide_dir": [ 0.0,     -1.0,      0.0 ]},
+{"step_no": 3,  "member_id": 21, "member_role": "nogging",                  "slide_dir": [-1.0,      0.0,      0.0 ]},
+{"step_no": 4,  "member_id": 12, "member_role": "common stud",              "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 5,  "member_id": 6,  "member_role": "nogging",                  "slide_dir": [-1.0,      0.0,      0.0 ]},
+{"step_no": 6,  "member_id": 2,  "member_role": "common stud",              "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 7,  "member_id": 16, "member_role": "jamb stud",                "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 8,  "member_id": 22, "member_role": "jack stud below sill",     "slide_dir": [ 0.0,     -1.0,      0.0 ]},
+{"step_no": 9,  "member_id": 25, "member_role": "jack stud below sill",     "slide_dir": [ 0.0,     -1.0,      0.0 ]},
+{"step_no": 10, "member_id": 11, "member_role": "sill trimmer",             "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 11, "member_id": 26, "member_role": "jamb stud",                "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 12, "member_id": 3,  "member_role": "lintel",                   "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 13, "member_id": 24, "member_role": "jack stud above header",   "slide_dir": [ 0.0,     -1.0,      0.0 ]},
+{"step_no": 14, "member_id": 23, "member_role": "jack stud above header",   "slide_dir": [ 0.0,     -1.0,      0.0 ]},
+{"step_no": 15, "member_id": 7,  "member_role": "common stud",              "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 16, "member_id": 18, "member_role": "nogging",                  "slide_dir": [-1.0,      0.0,      0.0 ]},
+{"step_no": 17, "member_id": 17, "member_role": "common stud",              "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 18, "member_id": 8,  "member_role": "nogging",                  "slide_dir": [-1.0,      0.0,      0.0 ]},
+{"step_no": 19, "member_id": 4,  "member_role": "common stud",              "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 20, "member_id": 27, "member_role": "jamb stud",                "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 21, "member_id": 28, "member_role": "jamb stud",                "slide_dir": [ 0.0,     -1.0,      0.0 ]},
+{"step_no": 22, "member_id": 13, "member_role": "lintel",                   "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 23, "member_id": 19, "member_role": "jack stud above header",   "slide_dir": [ 0.0,     -1.0,      0.0 ]},
+{"step_no": 24, "member_id": 20, "member_role": "jack stud above header",   "slide_dir": [ 0.0,     -1.0,      0.0 ]},
+{"step_no": 25, "member_id": 5,  "member_role": "common stud",              "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 26, "member_id": 15, "member_role": "nogging",                  "slide_dir": [-1.0,      0.0,      0.0 ]},
+{"step_no": 27, "member_id": 14, "member_role": "common stud",              "slide_dir": [-0.7071,  -0.7071,   0.0 ]},
+{"step_no": 28, "member_id": 1,  "member_role": "top plate",                "slide_dir": [ 0.0,     -1.0,      0.0 ]}
+]
