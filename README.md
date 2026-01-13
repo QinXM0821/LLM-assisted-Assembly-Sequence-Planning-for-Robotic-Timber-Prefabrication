@@ -19,11 +19,11 @@ Figure 2. Illustration of zero clearance insertion under incorrect sequence (a) 
 
 Figure 3. Proposed Workflow of LLM-assisted Robotic Structural Assembly
 
-<img src="Figures/technique pipeline.png" width="30%">
+<img src="Figures/technique pipeline.png" width="40%">
 
 Figure 4. Technical Pipeline of the proposed LLM-driven Task Sequencing Method for Robotic Structural Assembly
 
-<img src="Figures/generator-corrector architecture.png" width="50%">
+<img src="Figures/generator-corrector architecture.png" width="40%">
 
 
 <img src="Figures/fail_wall3_assembly.gif" width="70%">
