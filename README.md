@@ -25,8 +25,12 @@ Figure 4. Technical Pipeline of the proposed LLM-driven Task Sequencing Method f
 
 <img src="Figures/generator-corrector architecture.png" width="40%">
 
+Figure X. Generator-Corrector Architecture of the LLM Agent
 
 <img src="Figures/fail_wall3_assembly.gif" width="70%">
 
+Figure X. GIF Animation of a Failure Case of Wall 3
 
+<img src="Figures/success_wall3_assembly.gif" width="70%">
 
+Figure X. GIF Animation of a Success Case of Wall 3
