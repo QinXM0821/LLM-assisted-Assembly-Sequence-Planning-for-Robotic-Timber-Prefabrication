@@ -18,5 +18,5 @@ Figure 2. Illustration of zero clearance insertion under incorrect sequence (a) 
 <img src="Figures/LLM-assisted workflow.png" width="40%">
 
 
-<img src="Figures/technique pipeline" width="40%">
+<img src="Figures/technique pipeline.png" width="40%">
 
