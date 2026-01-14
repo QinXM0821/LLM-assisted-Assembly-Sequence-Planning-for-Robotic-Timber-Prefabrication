@@ -37,7 +37,7 @@ Figure X. Generator-Corrector Architecture of the LLM Agent
 
 
 
-<img src="Figures/wall frame structure model 3.png" width="40%"> <img src="Figures/wall frame structure model 6.png" width="58%"> 
+<img src="Figures/wall frame structure model 3.png" width="25%"> <img src="Figures/wall frame structure model 6.png" width="35%"> 
 
 Figure X. Examples of design revit model wall 3 (left) and wall 6 (right)
 
