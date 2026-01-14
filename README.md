@@ -59,7 +59,7 @@ Figure 8. Example of **Generator Output** of Reasoning Process in TXT Format
 
 Figure 9. Example of **Generator Output** of Sequence in JSON Format
 
-The Corrector then inputs the *preliminary_sequence_plan.json* and outputs a *reasoning_process.txt* (Fig. 10) and a *preliminary_sequence_plan.json* (Fig. 11). The latter is enriched with additional attributes, specifically *slide_dir*.
+Subsequently, the Corrector processes the *preliminary_sequence_plan.json* and outputs a *reasoning_process.txt* (Fig. 10) and a *revised_sequence_plan.json* (Fig. 11). This revised plan is enriched with an additional attribute, specifically *slide_dir*.
 
 <img src="Figures/corrector output reasoning process TXT 01.png" width="70%">
 <img src="Figures/corrector output reasoning process TXT 02.png" width="70%">
@@ -71,13 +71,15 @@ Figure 10. Example of **Corrector Output** of Reasoning Process in TXT Format
 
 Figure 11. Example of **Corrector Output** of Sequence in JSON Format
 
+To further validate the accuracy of the results, a human-in-the-loop verification step is appended after the Corrector. Specifically, the raw text-based sequence plan is automatically rendered into a visual GIF animation accompanied by annotations, thereby enabling rapid and intuitive human verification. Figs. 12 and 13 illustrate the GIF animations of success and failure cases for Wall 3 and Wall 6, respectively.
+
 <img src="Figures/success_wall3_assembly.gif" width="48%"> <img src="Figures/fail_wall3_assembly.gif" width="48%"> 
 
-Figure X. GIF Animations of a Success Case (left) and a Failure Case (right) of Wall 3
+Figure 12. GIF Animations of a Success Case (left) and a Failure Case (right) of Wall 3
 
 <img src="Figures/success_wall6_assembly.gif" width="48%"> <img src="Figures/fail_wall6_assembly.gif" width="48%"> 
 
-Figure X. GIF Animations of a Success Case (left) and a Failure Case (right) of Wall 6
+Figure 13. GIF Animations of a Success Case (left) and a Failure Case (right) of Wall 6
 
 
 
