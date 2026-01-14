@@ -33,8 +33,7 @@ A generator-corrector architecture is adopted to improve reasoning reliability. 
 
 Figure X. Generator-Corrector Architecture of the LLM Agent
 
-<img src="Figures/success_wall3_assembly.gif" width="48%">
-<img src="Figures/fail_wall3_assembly.gif" width="48%"> 
+<img src="Figures/success_wall3_assembly.gif" width="48%"/> <img src="Figures/fail_wall3_assembly.gif" width="48%"/> 
 
 Figure X. GIF Animations of a Failure Case (left) and a Success Case (right) of Wall 3
 
