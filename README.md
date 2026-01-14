@@ -15,22 +15,28 @@ Figure 2. Illustration of zero clearance insertion under incorrect sequence (a) 
 
 ## Proposed LLM-driven Task Sequencing Method for Robotic Structural Assembly
 
+To address the aforementioned problems in robotic structural assembly, we proposed an LLM-driven task sequencing method for robotic structural assembly. As shown in Fig. 3, the proposed approach constructs LLM agents that take structured geometric information extracted from BIM design models as input and generate assembly sequence plans as output. 
+
 <img src="Figures/LLM-assisted workflow.png" width="50%">
 
 Figure 3. Proposed Workflow of LLM-assisted Robotic Structural Assembly
+
+Fig. 4 illustrates the technical pipeline of the proposed method. The core of this framework is to establish an automated pipeline that transforms structural design models into robot-executable structural assembly code. 
 
 <img src="Figures/technique pipeline.png" width="40%">
 
 Figure 4. Technical Pipeline of the proposed LLM-driven Task Sequencing Method for Robotic Structural Assembly
 
+A generator-corrector architecture is adopted to improve reasoning reliability. The agent has abilities to identify structural component roles, determine assembly sequences, and infer feasible slide-in directions. 
+
 <img src="Figures/generator-corrector architecture.png" width="40%">
 
 Figure X. Generator-Corrector Architecture of the LLM Agent
 
-<img src="Figures/fail_wall3_assembly.gif" width="70%">
+<img src="Figures/success_wall3_assembly.gif" width="48%">
+<img src="Figures/fail_wall3_assembly.gif" width="48%"> 
 
-Figure X. GIF Animation of a Failure Case of Wall 3
+Figure X. GIF Animations of a Failure Case (left) and a Success Case (right) of Wall 3
 
-<img src="Figures/success_wall3_assembly.gif" width="70%">
 
-Figure X. GIF Animation of a Success Case of Wall 3
+
