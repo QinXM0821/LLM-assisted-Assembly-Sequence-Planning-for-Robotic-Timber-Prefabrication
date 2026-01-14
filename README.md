@@ -71,7 +71,7 @@ Figure 10. Example of **Corrector Output** of Reasoning Process in TXT Format
 
 Figure 11. Example of **Corrector Output** of Sequence in JSON Format
 
-To further validate the accuracy of the results, a human-in-the-loop verification step is appended after the Corrector. Specifically, the raw text-based sequence plan is automatically rendered into a visual GIF animation accompanied by annotations, thereby enabling rapid and intuitive human verification. Figs. 12 and 13 illustrate the GIF animations of success and failure cases for Wall 3 and Wall 6, respectively.
+To further validate the accuracy of the LLM Agent output, a human-in-the-loop verification step is appended after the Corrector. Specifically, the raw text-based sequence plan is automatically rendered into a visual GIF animation accompanied by annotations, thereby enabling rapid and intuitive human verification. Figs. 12 and 13 illustrate the GIF animations of success and failure cases for Wall 3 and Wall 6, respectively.
 
 <img src="Figures/success_wall3_assembly.gif" width="48%"> <img src="Figures/fail_wall3_assembly.gif" width="48%"> 
 
