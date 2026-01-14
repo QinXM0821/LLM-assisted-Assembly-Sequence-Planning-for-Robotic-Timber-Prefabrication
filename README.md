@@ -37,7 +37,7 @@ Figure X. Generator-Corrector Architecture of the LLM Agent
 
 
 
-<img src="Figures/wall frame structure model 3.png" width="25%"> <img src="Figures/wall frame structure model 6.png" width="35%"> 
+<img src="Figures/wall frame structure model 3.png" width="20%"> <img src="Figures/wall frame structure model 6.png" width="35%"> 
 
 Figure X. Examples of design revit model wall 3 (left) and wall 6 (right)
 
@@ -53,7 +53,11 @@ Figure X. Example of Generator Output of Reasoning Process in TXT Format
 
 Figure X. Example of Generator Output of Sequence in JSON Format
 
+<img src="Figures/corrector output reasoning process TXT 01.png" width="70%">
+<img src="Figures/corrector output reasoning process TXT 02.png" width="70%">
+<img src="Figures/corrector output reasoning process TXT 03.png" width="70%">
 
+Figure X. Example of Corrector Output of Reasoning Process in TXT Format
 
 
 <img src="Figures/success_wall3_assembly.gif" width="48%"> <img src="Figures/fail_wall3_assembly.gif" width="48%"> 
