@@ -47,21 +47,21 @@ Figure X. Example of Geometry Information in JSON Format
 
 <img src="Figures/generator output reasoning process TXT.png" width="70%">
 
-Figure X. Example of Generator Output of Reasoning Process in TXT Format
+Figure X. Example of **Generator Output** of Reasoning Process in TXT Format
 
 <img src="Figures/generator output sequence JSON.png" width="50%">
 
-Figure X. Example of Generator Output of Sequence in JSON Format
+Figure X. Example of **Generator Output** of Sequence in JSON Format
 
 <img src="Figures/corrector output reasoning process TXT 01.png" width="70%">
 <img src="Figures/corrector output reasoning process TXT 02.png" width="70%">
 <img src="Figures/corrector output reasoning process TXT 03.png" width="70%">
 
-Figure X. Example of Corrector Output of Reasoning Process in TXT Format
+Figure X. Example of **Corrector Output** of Reasoning Process in TXT Format
 
 <img src="Figures/corrector output sequence JSON.png" width="50%">
 
-Figure X. Example of Corrector Output of Sequence in JSON Format
+Figure X. Example of **Corrector Output** of Sequence in JSON Format
 
 <img src="Figures/success_wall3_assembly.gif" width="48%"> <img src="Figures/fail_wall3_assembly.gif" width="48%"> 
 

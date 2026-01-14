@@ -1,0 +1,184 @@
+Below is the complete step-by-step analysis.
+
+====================================================
+PART 1  Rule Check on the ORIGINAL sequence
+====================================================
+Notation – each blocked edge is written as
+edge:{by: <member_id> @step=<step_no>}  
+If several blockers exist on the same edge they are comma-separated.
+
+Rule Check Result ( ORIGINAL order supplied by the user )
+
+step  member role                blocked_edges                             result
+----  ------------------------  ------------------------------------------------ --------
+ 1    10  bottom plate           {}                                              #PASS
+ 2    9   common stud            bottom:{by:10@1}                                #PASS
+ 3    21  nogging                left:{by:9@2}                                   #PASS
+ 4    12  common stud            bottom:{by:10@1}, left:{by:21@3}                #PASS
+ 5    6   nogging                left:{by:12@4}                                  #PASS
+ 6    2   common stud            bottom:{by:10@1}, left:{by:6@5}                 #PASS
+ 7    16  jamb stud              bottom:{by:10@1}, left:{by:2@6}                 #PASS
+ 8    22  jack stud (below)      bottom:{by:10@1}                                #PASS
+ 9    25  jack stud (below)      bottom:{by:10@1}                                #PASS
+10    11  sill trimmer           bottom:{by:22@8,25@9}, left:{by:16@7}          #PASS
+11    3   lintel                 bottom:{by:16@7}, left:{by:2@6}                 #PASS
+12    24  jack stud (above)      bottom:{by:3@11}                                #PASS
+13    23  jack stud (above)      bottom:{by:3@11}                                #PASS
+14    26  jamb stud              bottom:{by:10@1}, top:{by:3@11}, left:{by:11@10} #INFEASIBLE  ⟵ violates free-edge rule
+15    7   common stud            bottom:{by:10@1}, left:{by:26@14}               #PASS
+16    18  nogging                left:{by:7@15}                                  #PASS
+17    17  common stud            bottom:{by:10@1}, left:{by:18@16}               #PASS
+18    8   nogging                left:{by:17@17}                                 #PASS
+19    4   common stud            bottom:{by:10@1}, left:{by:8@18}                #PASS
+20    27  jamb stud              bottom:{by:10@1}, left:{by:4@19}                #PASS
+21    13  lintel                 bottom:{by:27@20}, left:{by:4@19}               #PASS
+22    19  jack stud (above)      bottom:{by:13@21}                               #PASS
+23    20  jack stud (above)      bottom:{by:13@21}                               #PASS
+24    28  jamb stud              bottom:{by:10@1}, top:{by:13@21}                #INFEASIBLE  ⟵ violates free-edge rule
+25    5   common stud            bottom:{by:10@1}, left:{by:28@24}               #PASS
+26    15  nogging                left:{by:5@25}                                  #PASS
+27    14  common stud            bottom:{by:10@1}, left:{by:15@26}               #PASS
+28    1   top plate              bottom:{by:9@2,12@4,2@6,7@15,17@17,4@19,5@25,14@27,24@12,23@13,19@22,20@23} #PASS
+
+Violations detected at steps 14 and 24.
+
+====================================================
+PART 2   Repair Strategy
+====================================================
+Cause of errors  
+ - Step 14 and 24 jamb studs were inserted AFTER their corresponding lintels, so both end edges (top & bottom) were blocked, violating the free-edge rule.
+
+Fix  
+ - Move jamb stud 26 so it is placed AFTER sill-trimmer 11 but BEFORE lintel 3.  
+ - Move jamb stud 28 so it is placed BEFORE lintel 13.  
+ - All other members keep their relative order.
+
+====================================================
+PART 3   Revised Assembly Sequence (all rules satisfied)
+====================================================
+New order (28 steps):
+
+ 1 10 bottom plate                15 7  common stud  
+ 2 9  common stud                 16 18 nogging  
+ 3 21 nogging                     17 17 common stud  
+ 4 12 common stud                 18 8  nogging  
+ 5 6  nogging                     19 4  common stud  
+ 6 2  common stud                 20 27 jamb stud  
+ 7 16 jamb stud                   21 28 jamb stud  
+ 8 22 jack stud below sill        22 13 lintel  
+ 9 25 jack stud below sill        23 19 jack stud above  
+10 11 sill trimmer                24 20 jack stud above  
+11 26 jamb stud                   25 5  common stud  
+12 3  lintel                      26 15 nogging  
+13 24 jack stud above             27 14 common stud  
+14 23 jack stud above             28 1  top plate  
+
+====================================================
+PART 4  Rule Check on the REVISED sequence
+====================================================
+Step-by-step blocked-edge report (all steps now satisfy the free-edge rule)
+
+step  member_id role             blocked_edges                                     result
+----  ---------- --------------  -------------------------------------------------- --------
+ 1    10 bottom plate            {}                                                 #PASS
+ 2    9  common stud             bottom:{by:10@1}                                   #PASS
+ 3    21 nogging                 left:{by:9@2}                                      #PASS
+ 4    12 common stud             bottom:{by:10@1}, left:{by:21@3}                   #PASS
+ 5    6  nogging                 left:{by:12@4}                                     #PASS
+ 6    2  common stud             bottom:{by:10@1}, left:{by:6@5}                    #PASS
+ 7    16 jamb stud               bottom:{by:10@1}, left:{by:2@6}                    #PASS
+ 8    22 jack stud below         bottom:{by:10@1}                                   #PASS
+ 9    25 jack stud below         bottom:{by:10@1}                                   #PASS
+10    11 sill trimmer            bottom:{by:22@8,25@9}, left:{by:16@7}              #PASS
+11    26 jamb stud               bottom:{by:10@1}, left:{by:11@10}                  #PASS
+12    3  lintel                  bottom:{by:16@7,26@11}, left:{by:2@6}              #PASS
+13    24 jack stud above         bottom:{by:3@12}                                   #PASS
+14    23 jack stud above         bottom:{by:3@12}                                   #PASS
+15    7  common stud             bottom:{by:10@1}, left:{by:26@11}                  #PASS
+16    18 nogging                 left:{by:7@15}                                     #PASS
+17    17 common stud             bottom:{by:10@1}, left:{by:18@16}                  #PASS
+18    8  nogging                 left:{by:17@17}                                    #PASS
+19    4  common stud             bottom:{by:10@1}, left:{by:8@18}                   #PASS
+20    27 jamb stud               bottom:{by:10@1}, left:{by:4@19}                   #PASS
+21    28 jamb stud               bottom:{by:10@1}                                   #PASS
+22    13 lintel                  bottom:{by:27@20,28@21}, left:{by:4@19}            #PASS
+23    19 jack stud above         bottom:{by:13@22}                                  #PASS
+24    20 jack stud above         bottom:{by:13@22}                                  #PASS
+25    5  common stud             bottom:{by:10@1}, left:{by:28@21}                  #PASS
+26    15 nogging                 left:{by:5@25}                                     #PASS
+27    14 common stud             bottom:{by:10@1}, left:{by:15@26}                  #PASS
+28    1  top plate               bottom:{by:9@2,12@4,2@6,7@15,17@17,4@19,5@25,14@27,24@13,23@14,19@23,20@24} #PASS
+
+All 28 steps now satisfy every rule.
+
+====================================================
+PART 5   Slide-in directions for the REVISED sequence
+====================================================
+Edge-based rule (see prompt §7) yields the following unit slide vectors (dx,dy,dz):
+
+step  member_id  slide_dir
+----  ----------  ------------------
+ 1    10          [ 0.0,   0.0, 0.0 ]
+ 2    9           [ 0.0,  -1.0, 0.0 ]
+ 3    21          [ -1.0,  0.0, 0.0 ]
+ 4    12          [ -0.7071, -0.7071, 0.0 ]
+ 5    6           [ -1.0,  0.0, 0.0 ]
+ 6    2           [ -0.7071, -0.7071, 0.0 ]
+ 7    16          [ -0.7071, -0.7071, 0.0 ]
+ 8    22          [ 0.0,  -1.0, 0.0 ]
+ 9    25          [ 0.0,  -1.0, 0.0 ]
+10    11          [ -0.7071, -0.7071, 0.0 ]
+11    26          [ -0.7071, -0.7071, 0.0 ]
+12    3           [ -0.7071, -0.7071, 0.0 ]
+13    24          [ 0.0,  -1.0, 0.0 ]
+14    23          [ 0.0,  -1.0, 0.0 ]
+15    7           [ -0.7071, -0.7071, 0.0 ]
+16    18          [ -1.0,  0.0, 0.0 ]
+17    17          [ -0.7071, -0.7071, 0.0 ]
+18    8           [ -1.0,  0.0, 0.0 ]
+19    4           [ -0.7071, -0.7071, 0.0 ]
+20    27          [ -0.7071, -0.7071, 0.0 ]
+21    28          [ 0.0,  -1.0, 0.0 ]
+22    13          [ -0.7071, -0.7071, 0.0 ]
+23    19          [ 0.0,  -1.0, 0.0 ]
+24    20          [ 0.0,  -1.0, 0.0 ]
+25    5           [ -0.7071, -0.7071, 0.0 ]
+26    15          [ -1.0,  0.0, 0.0 ]
+27    14          [ -0.7071, -0.7071, 0.0 ]
+28    1           [ 0.0,  -1.0, 0.0 ]
+
+====================================================
+PART 6   Final machine-processable output
+====================================================
+JSON array (revised sequence, slide vectors included, no comments):
+
+[
+{"step_no":1, "member_id":10, "member_role":"bottom plate", "slide_dir":[0.0, 0.0, 0.0]},
+{"step_no":2, "member_id":9, "member_role":"common stud", "slide_dir":[0.0, -1.0, 0.0]},
+{"step_no":3, "member_id":21, "member_role":"nogging", "slide_dir":[-1.0, 0.0, 0.0]},
+{"step_no":4, "member_id":12, "member_role":"common stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":5, "member_id":6, "member_role":"nogging", "slide_dir":[-1.0, 0.0, 0.0]},
+{"step_no":6, "member_id":2, "member_role":"common stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":7, "member_id":16, "member_role":"jamb stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":8, "member_id":22, "member_role":"jack stud below sill", "slide_dir":[0.0, -1.0, 0.0]},
+{"step_no":9, "member_id":25, "member_role":"jack stud below sill", "slide_dir":[0.0, -1.0, 0.0]},
+{"step_no":10, "member_id":11, "member_role":"sill trimmer", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":11, "member_id":26, "member_role":"jamb stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":12, "member_id":3, "member_role":"lintel", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":13, "member_id":24, "member_role":"jack stud above header", "slide_dir":[0.0, -1.0, 0.0]},
+{"step_no":14, "member_id":23, "member_role":"jack stud above header", "slide_dir":[0.0, -1.0, 0.0]},
+{"step_no":15, "member_id":7, "member_role":"common stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":16, "member_id":18, "member_role":"nogging", "slide_dir":[-1.0, 0.0, 0.0]},
+{"step_no":17, "member_id":17, "member_role":"common stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":18, "member_id":8, "member_role":"nogging", "slide_dir":[-1.0, 0.0, 0.0]},
+{"step_no":19, "member_id":4, "member_role":"common stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":20, "member_id":27, "member_role":"jamb stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":21, "member_id":28, "member_role":"jamb stud", "slide_dir":[0.0, -1.0, 0.0]},
+{"step_no":22, "member_id":13, "member_role":"lintel", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":23, "member_id":19, "member_role":"jack stud above header", "slide_dir":[0.0, -1.0, 0.0]},
+{"step_no":24, "member_id":20, "member_role":"jack stud above header", "slide_dir":[0.0, -1.0, 0.0]},
+{"step_no":25, "member_id":5, "member_role":"common stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":26, "member_id":15, "member_role":"nogging", "slide_dir":[-1.0, 0.0, 0.0]},
+{"step_no":27, "member_id":14, "member_role":"common stud", "slide_dir":[-0.7071, -0.7071, 0.0]},
+{"step_no":28, "member_id":1, "member_role":"top plate", "slide_dir":[0.0, -1.0, 0.0]}
+]

@@ -1,0 +1,59 @@
+Reasoning Process (abridged but complete)
+
+1. Z–axis simplification  
+   Every centre / end-point has z = –0.05 m, so the whole wall is planar.  For collision and sequencing we can ignore the z coordinate and the depth value.  Only the 2-D data (x, y position, length, member orientation and the 50 mm thickness) are needed.
+
+2. Bounding boxes in the XY plane  
+   From (centre, length, orientation, width) the two end x–coordinates of each member were reconstructed.  That gives the rectangle that occupies the timber in plan view.
+
+3. Member–role identification  
+   • Horizontal at y = 0 m, 6.65 m long  →  bottom plate (id 10)  
+   • Horizontal at y = 2.50 m, 6.65 m long → top plate (id 1)  
+   • Vertical 2.45 m long (0.025 m clear below & above the plates) → common studs (ids 2,4,5,7,9,12,14,17)  
+   • Vertical 1.95 m long (bottom plate → lintel height 2.00 m) → jamb studs (ids 16,26,27,28)  
+   • Horizontal 1.75 m long at y = 2.00 m  → lintels (ids 3,13)  
+   • Horizontal 1.65 m long at y = 0.70 m  → sill trimmer (id 11)  
+   • Vertical 0.65 m long (bottom plate → sill)  → jack studs below sill (ids 22,25)  
+   • Vertical 0.45 m long (lintel → 2.50 m top plate) → jack studs above header (ids 19,20,23,24)  
+   • Every 0.55 m horizontal at y = 1.225 m → noggings (ids 6,8,15,18,21)
+
+4. Free-edge analysis and sequencing strategy  
+   To satisfy the Free-Edge rule a horizontal member must be inserted while at least one end is still open; a vertical member must be inserted while at least one side and one end are open.  
+   Therefore each nogging is scheduled after the left stud is in place but before the right stud.  
+   Each lintel is scheduled after the left jamb (or king stud) but before the right jamb.  
+   Sill is scheduled before the right jamb.  
+   The top plate is scheduled last to keep the upper ends of all shortened studs “open”.
+
+5. Left-to-right ordering applied inside the middle zone.
+
+Resulting preliminary assembly sequence
+[
+{"step_no": 1, "member_id": 10, "member_role": "bottom plate"},
+{"step_no": 2, "member_id": 9, "member_role": "common stud"},
+{"step_no": 3, "member_id": 21, "member_role": "nogging"},
+{"step_no": 4, "member_id": 12, "member_role": "common stud"},
+{"step_no": 5, "member_id": 6, "member_role": "nogging"},
+{"step_no": 6, "member_id": 2, "member_role": "common stud"},
+{"step_no": 7, "member_id": 16, "member_role": "jamb stud"},
+{"step_no": 8, "member_id": 22, "member_role": "jack stud below sill"},
+{"step_no": 9, "member_id": 25, "member_role": "jack stud below sill"},
+{"step_no": 10, "member_id": 11, "member_role": "sill trimmer"},
+{"step_no": 11, "member_id": 3, "member_role": "lintel"},
+{"step_no": 12, "member_id": 24, "member_role": "jack stud above header"},
+{"step_no": 13, "member_id": 23, "member_role": "jack stud above header"},
+{"step_no": 14, "member_id": 26, "member_role": "jamb stud"},
+{"step_no": 15, "member_id": 7, "member_role": "common stud"},
+{"step_no": 16, "member_id": 18, "member_role": "nogging"},
+{"step_no": 17, "member_id": 17, "member_role": "common stud"},
+{"step_no": 18, "member_id": 8, "member_role": "nogging"},
+{"step_no": 19, "member_id": 4, "member_role": "common stud"},
+{"step_no": 20, "member_id": 27, "member_role": "jamb stud"},
+{"step_no": 21, "member_id": 13, "member_role": "lintel"},
+{"step_no": 22, "member_id": 19, "member_role": "jack stud above header"},
+{"step_no": 23, "member_id": 20, "member_role": "jack stud above header"},
+{"step_no": 24, "member_id": 28, "member_role": "jamb stud"},
+{"step_no": 25, "member_id": 5, "member_role": "common stud"},
+{"step_no": 26, "member_id": 15, "member_role": "nogging"},
+{"step_no": 27, "member_id": 14, "member_role": "common stud"},
+{"step_no": 28, "member_id": 1, "member_role": "top plate"}
+]

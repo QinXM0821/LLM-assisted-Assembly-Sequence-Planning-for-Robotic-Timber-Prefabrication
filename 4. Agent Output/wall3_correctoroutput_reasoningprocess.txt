@@ -1,0 +1,99 @@
+Step-by-step reasoning
+
+0. Pre-processing  
+• All z–coordinates are –0.05 m, depth 0.10 m ⇒ reasoning may safely be done in the XY–plane (Rule 3).  
+• 2-D bounding boxes are therefore used for every member.
+
+────────────────────────────────────────
+Part 5  Rule Check on the preliminary sequence
+────────────────────────────────────────
+Blocked-edge detection tolerance = 1 mm.
+
+Rule Check Result (original order)
+
+step member role  blocked_edges                                       result
+1    8      bottom plate  {}                                          #PASS
+2    10     stud          bottom:{by:M_8@1}                           #PASS
+3    6      stud          bottom:{by:M_8@1}                           #PASS
+4    3      nogging       left:{by:M_10@2}, right:{by:M_6@3}          #INFEASIBLE
+5    2      stud          bottom:{by:M_8@1}                           #PASS
+6    9      nogging       left:{by:M_6@3}, right:{by:M_2@5}           #INFEASIBLE
+7    7      stud          bottom:{by:M_8@1}                           #PASS
+8    11     nogging       left:{by:M_2@5}, right:{by:M_7@7}           #INFEASIBLE
+9    5      stud          bottom:{by:M_8@1}                           #PASS
+10   4      nogging       left:{by:M_7@7}, right:{by:M_5@9}           #INFEASIBLE
+11   1      top plate     bottom:{by:M_10@2,M_6@3,M_2@5,M_7@7,M_5@9}  #PASS
+
+Violations: steps 4, 6, 8, 10 (each nogging had both end edges blocked → Free-edge rule failed).
+
+────────────────────────────────────────
+Part 6  Repairing the sequence
+────────────────────────────────────────
+Idea: place every nogging while one of its bounding studs is still missing.
+
+Re-ordering strategy (kept Bottom→Middle→Top hierarchy):
+1  bottom plate   (8)
+2  leftmost stud  (10)
+3  first nogging  (3)  – between studs 10 & 6
+4  stud (6)
+5  nogging (9)    – between studs 6 & 2
+6  stud (2)
+7  nogging (11)   – between studs 2 & 7
+8  stud (7)
+9  nogging (4)    – between studs 7 & 5
+10 stud (5)
+11 top plate (1)
+
+────────────────────────────────────────
+Rule Check Result (revised sequence)
+
+step member role  blocked_edges                                       result
+1    8  bottom plate  {}                                              #PASS
+2    10 stud          bottom:{by:M_8@1}                               #PASS
+3    3  nogging       left:{by:M_10@2}                                #PASS
+4    6  stud          bottom:{by:M_8@1}, left:{by:M_3@3}              #PASS
+5    9  nogging       left:{by:M_6@4}                                 #PASS
+6    2  stud          bottom:{by:M_8@1}, left:{by:M_9@5}              #PASS
+7    11 nogging       left:{by:M_2@6}                                 #PASS
+8    7  stud          bottom:{by:M_8@1}, left:{by:M_11@7}             #PASS
+9    4  nogging       left:{by:M_7@8}                                 #PASS
+10   5  stud          bottom:{by:M_8@1}, left:{by:M_4@9}              #PASS
+11   1  top plate     bottom:{by:M_10@2,M_6@4,M_2@6,M_7@8,M_5@10}     #PASS
+
+All rules are now satisfied.
+
+────────────────────────────────────────
+Part 7  Slide-in direction generation
+────────────────────────────────────────
+Rules applied edge-by-edge and then normalised:
+
+step  blocked edge set        slide_dir (dx,dy,dz)
+1     –                       [ 0.0000,  0.0000, 0.0]
+2     bottom                  [ 0.0000, –1.0000, 0.0]
+3     left                    [–1.0000,  0.0000, 0.0]
+4     left + bottom           [–0.7071, –0.7071, 0.0]
+5     left                    [–1.0000,  0.0000, 0.0]
+6     left + bottom           [–0.7071, –0.7071, 0.0]
+7     left                    [–1.0000,  0.0000, 0.0]
+8     left + bottom           [–0.7071, –0.7071, 0.0]
+9     left                    [–1.0000,  0.0000, 0.0]
+10    left + bottom           [–0.7071, –0.7071, 0.0]
+11    bottom                  [ 0.0000, –1.0000, 0.0]
+
+────────────────────────────────────────
+Part 8  Output – Revised, rule-compliant sequence
+────────────────────────────────────────
+[
+{"step_no": 1,  "member_id": 8,  "member_role": "bottom plate", "slide_dir": [0.0, 0.0, 0.0]},
+{"step_no": 2,  "member_id": 10, "member_role": "common stud",  "slide_dir": [0.0, -1.0, 0.0]},
+{"step_no": 3,  "member_id": 3,  "member_role": "nogging",      "slide_dir": [-1.0, 0.0, 0.0]},
+{"step_no": 4,  "member_id": 6,  "member_role": "common stud",  "slide_dir": [-0.7071, -0.7071, 0.0]},
+{"step_no": 5,  "member_id": 9,  "member_role": "nogging",      "slide_dir": [-1.0, 0.0, 0.0]},
+{"step_no": 6,  "member_id": 2,  "member_role": "common stud",  "slide_dir": [-0.7071, -0.7071, 0.0]},
+{"step_no": 7,  "member_id": 11, "member_role": "nogging",      "slide_dir": [-1.0, 0.0, 0.0]},
+{"step_no": 8,  "member_id": 7,  "member_role": "common stud",  "slide_dir": [-0.7071, -0.7071, 0.0]},
+{"step_no": 9,  "member_id": 4,  "member_role": "nogging",      "slide_dir": [-1.0, 0.0, 0.0]},
+{"step_no": 10, "member_id": 5,  "member_role": "common stud",  "slide_dir": [-0.7071, -0.7071, 0.0]},
+{"step_no": 11, "member_id": 1,  "member_role": "top plate",    "slide_dir": [0.0, -1.0, 0.0]}
+]
+
