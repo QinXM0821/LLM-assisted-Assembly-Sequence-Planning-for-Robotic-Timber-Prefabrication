@@ -43,27 +43,33 @@ Timber structural models were built using Autodesk Revit 2025, including six wal
 
 Figure 6. Examples of design revit model wall 3 (left) and wall 6 (right)
 
+Each Revit model was first converted to IFC4 format and then parsed by IfcOpenShell to extract geometric information in JSON format as shown in Fig. 7. The extracted geometric information includes the member identifier, overall dimensions (length, width, and depth), centroid coordinates, orientation vectors, and end-point positions.
+
 <img src="Figures/extracted geo info JSON file from IFC.png" width="50%">
 
-Figure X. Example of Geometry Information in JSON Format
+Figure 7. Example of Geometry Information in JSON Format
+
+The Generator processes the input file *geometric_information.json* to produce two outputs: a *reasoning_process.txt* (Fig. 8) and a *preliminary_sequence_plan.json* (Fig. 9). The latter is enriched with additional attributes, specifically *step_no* and *member_role*.
 
 <img src="Figures/generator output reasoning process TXT.png" width="70%">
 
-Figure X. Example of **Generator Output** of Reasoning Process in TXT Format
+Figure 8. Example of **Generator Output** of Reasoning Process in TXT Format
 
 <img src="Figures/generator output sequence JSON.png" width="50%">
 
-Figure X. Example of **Generator Output** of Sequence in JSON Format
+Figure 9. Example of **Generator Output** of Sequence in JSON Format
+
+The Corrector then inputs the *preliminary_sequence_plan.json* and outputs a *reasoning_process.txt* (Fig. 10) and a *preliminary_sequence_plan.json* (Fig. 11). The latter is enriched with additional attributes, specifically *slide_dir*.
 
 <img src="Figures/corrector output reasoning process TXT 01.png" width="70%">
 <img src="Figures/corrector output reasoning process TXT 02.png" width="70%">
 <img src="Figures/corrector output reasoning process TXT 03.png" width="70%">
 
-Figure X. Example of **Corrector Output** of Reasoning Process in TXT Format
+Figure 10. Example of **Corrector Output** of Reasoning Process in TXT Format
 
 <img src="Figures/corrector output sequence JSON.png" width="50%">
 
-Figure X. Example of **Corrector Output** of Sequence in JSON Format
+Figure 11. Example of **Corrector Output** of Sequence in JSON Format
 
 <img src="Figures/success_wall3_assembly.gif" width="48%"> <img src="Figures/fail_wall3_assembly.gif" width="48%"> 
 
