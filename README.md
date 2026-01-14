@@ -65,11 +65,11 @@ Figure X. Example of Corrector Output of Sequence in JSON Format
 
 <img src="Figures/success_wall3_assembly.gif" width="48%"> <img src="Figures/fail_wall3_assembly.gif" width="48%"> 
 
-Figure X. GIF Animations of a Failure Case (left) and a Success Case (right) of Wall 3
+Figure X. GIF Animations of a Success Case (left) and a Failure Case (right) of Wall 3
 
 <img src="Figures/success_wall6_assembly.gif" width="48%"> <img src="Figures/fail_wall6_assembly.gif" width="48%"> 
 
-Figure X. GIF Animations of a Failure Case (left) and a Success Case (right) of Wall 6
+Figure X. GIF Animations of a Success Case (left) and a Failure Case (right) of Wall 6
 
 
 
