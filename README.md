@@ -59,10 +59,17 @@ Figure X. Example of Generator Output of Sequence in JSON Format
 
 Figure X. Example of Corrector Output of Reasoning Process in TXT Format
 
+<img src="Figures/corrector output sequence JSON.png" width="50%">
+
+Figure X. Example of Corrector Output of Sequence in JSON Format
 
 <img src="Figures/success_wall3_assembly.gif" width="48%"> <img src="Figures/fail_wall3_assembly.gif" width="48%"> 
 
 Figure X. GIF Animations of a Failure Case (left) and a Success Case (right) of Wall 3
+
+<img src="Figures/success_wall6_assembly.gif" width="48%"> <img src="Figures/fail_wall6_assembly.gif" width="48%"> 
+
+Figure X. GIF Animations of a Failure Case (left) and a Success Case (right) of Wall 6
 
 
 
