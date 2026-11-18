@@ -1,4 +1,4 @@
-# LLM-Agent-assisted-Task-Sequencing-for-Robotic-Structural-Assembly
+# LLM-assisted-Assembly-Sequence-Planning-for-Robotic-Timber-Prefabrication
 
 ## Research Gaps
 In conventional robotic structural assembly workflows, as illustrated in Fig. 1, robot engineers are required to manually extract structural geometric information from design models, plan assembly sequences, and program the robot accordingly. However, in construction-oriented structural assembly scenarios, structures often vary in size, geometry, and layout patterns. Even minor design changes require robot engineers to repeat the entire workflow of geometric interpretation, task sequencing, and robot programming. This strong reliance on manual intervention significantly reduces the level of automation and leads to low efficiency in robotic structural assembly applications. 
