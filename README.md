@@ -3,7 +3,7 @@
 ## Research Problems
 In conventional robotic structural assembly workflows, as illustrated in Fig. 1, robot engineers are required to manually extract structural geometric information from design models, plan assembly sequences, and program the robot accordingly. However, in construction-oriented structural assembly scenarios, structures often vary in size, geometry, and layout patterns. Even minor design changes require robot engineers to repeat the entire workflow of geometric interpretation, task sequencing, and robot programming. This strong reliance on manual intervention significantly reduces the level of automation and leads to low efficiency in robotic structural assembly applications. 
 
-<img src="Figures for README/conventional workflow.png" width="50%">
+<img src="Figures for README/conventional workflow.png" width="60%">
 
 Figure 1. Conventional Workflow of Robotic Structural Assembly
 
@@ -11,7 +11,7 @@ During manual timber assembly, workers can adjust a member’s position during p
 
 The free-edge rule requires each member to have at least one side edge and one end edge fully exposed. Its slide-in motion must avoid geometric overlap and zero-clearance sliding with previously installed members, while allowing intended contact at the final position. Fig. 3 illustrates how assembly sequence and slide-in direction violate or satisfy the free-edge rule. In Fig. 3(a), installing the two vertical members before horizontal member 3 constrains both ends of it, violating the free-edge rule. Because it will cause zero-clearance insertion during the slide-in motion. In Fig. 3(b), candidate member 3 has exposed side and end edges, but its slide-in direction causes zero-clearance sliding against member 2. Fig. 3(c) retains the same partial assembly and changes the slide-in direction. Member 3 approaches from the right and moves leftward, allowing contact at the target position without the zero-clearance sliding. These examples demonstrate why both assembly sequence and slide-in direction must be considered to generate a valid assembly plan.
 
-<img src="Figures for README/zero clearance insertion and slide in direction.png" width="40%">
+<img src="Figures for README/zero clearance insertion and slide in direction.png" width="60%">
 
 Figure 2. Illustration of zero clearance insertion under inproper sequence (a) and safe slide-in direction under proper sequence (b)
 
@@ -19,7 +19,7 @@ Figure 2. Illustration of zero clearance insertion under inproper sequence (a) a
 
 To address the aforementioned problems in robotic structural assembly, we proposed an LLM-driven task sequencing method for robotic structural assembly. As shown in Fig. 3, the proposed approach constructs LLM agents that take structured geometric information extracted from BIM design models as input and generate assembly sequence plans as output. 
 
-<img src="Figures for README/LLM-assisted workflow.png" width="50%">
+<img src="Figures for README/LLM-assisted workflow.png" width="60%">
 
 Figure 3. Proposed Workflow of LLM-assisted Robotic Structural Assembly
 
@@ -85,14 +85,14 @@ Figure 13. GIF Animations of a Success Case (left) and a Failure Case (right) of
 
 
 
-<img src="Figures for README/revseq_wall6_r7_assembly.gif" width="48%">
+<img src="Figures for README/revseq_wall6_r7_assembly.gif" width="60%">
 
 Figure 14. An example of failed sequence plan for Wall 6
 
-<img src="Figures for README/revseq_wall6_r2_assembly.gif" width="48%">
+<img src="Figures for README/revseq_wall6_r2_assembly.gif" width="60%">
 
 Figure 15. An example of success sequence but failed slide-in direction plan for Wall 6
 
-<img src="Figures for README/revseq_wall6_r5_assembly.gif" width="48%">
+<img src="Figures for README/revseq_wall6_r5_assembly.gif" width="60%">
 
 Figure 16. An example of success sequence and slide-in direction plan for Wall 6
