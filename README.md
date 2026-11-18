@@ -85,14 +85,14 @@ Figure 13. GIF Animations of a Success Case (left) and a Failure Case (right) of
 
 
 
-<img src="Figures for README/revseq_wall6_r7_assembly.gif" width="60%">
+<img src="Figures for README/revseq_wall6_r7_assembly.gif" width="100%">
 
 Figure 14. An example of failed sequence plan for Wall 6
 
-<img src="Figures for README/revseq_wall6_r2_assembly.gif" width="60%">
+<img src="Figures for README/revseq_wall6_r2_assembly.gif" width="100%">
 
 Figure 15. An example of success sequence but failed slide-in direction plan for Wall 6
 
-<img src="Figures for README/revseq_wall6_r5_assembly.gif" width="60%">
+<img src="Figures for README/revseq_wall6_r5_assembly.gif" width="100%">
 
 Figure 16. An example of success sequence and slide-in direction plan for Wall 6
